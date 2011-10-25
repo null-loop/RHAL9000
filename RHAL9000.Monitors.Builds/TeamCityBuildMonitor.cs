@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using log4net;
 
 namespace RHAL9000.Monitors.Builds
 {
     public class TeamCityBuildMonitor : IBuildMonitor
     {
         //TODO:Monitor multiple builds.
-
         private readonly List<string> _completedBuildIds = new List<string>();
 
         private List<BuildProjectModel> _buildProjects;
@@ -70,9 +70,7 @@ namespace RHAL9000.Monitors.Builds
 
             if (BuildTypeIds.Count() > 0)
             {
-                types =
-                    projects.SelectMany(p => p.BuildTypes).Where(s => BuildTypeIds.Contains(s.Id)).Select(
-                        t => Client.GetBuildType(t.Id)).ToArray();
+                types = projects.SelectMany(p => p.BuildTypes).Where(s => BuildTypeIds.Contains(s.Id)).Select(t => Client.GetBuildType(t.Id)).ToArray();
             }
             else
             {

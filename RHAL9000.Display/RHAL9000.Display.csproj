@@ -78,6 +78,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BasicRegistry.cs" />
     <Compile Include="Builds\TeamCityBuildsView.xaml.cs">
       <DependentUpon>TeamCityBuildsView.xaml</DependentUpon>
     </Compile>
