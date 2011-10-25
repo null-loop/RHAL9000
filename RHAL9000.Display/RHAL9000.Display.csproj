@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{23E4CA4B-0CC8-4CB4-B216-638CCE1DD684}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RHAL9000.Display</RootNamespace>
+    <AssemblyName>RHAL9000.Display</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>HAL-9000.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\Net40\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Reactive">
+      <HintPath>..\packages\Rx-Main.1.0.10621\lib\Net4\System.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading">
+      <HintPath>..\packages\Rx-WPF.1.0.10621\lib\Net4\System.Reactive.Windows.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\packages\Caliburn.Micro.1.2.0\lib\Net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Builds\TeamCityBuildsView.xaml.cs">
+      <DependentUpon>TeamCityBuildsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Builds\TeamCityBuildsViewModel.cs" />
+    <Compile Include="PollingContainerViewModel.cs" />
+    <Compile Include="SingleMonitorPollingViewModel.cs" />
+    <Compile Include="Themes\BooleanToVisibilityConverter.cs" />
+    <Compile Include="FakeTeamCityClient.cs" />
+    <Compile Include="Ioc.cs" />
+    <Compile Include="PollingContainerView.xaml.cs">
+      <DependentUpon>PollingContainerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShellViewModel.cs" />
+    <Compile Include="Themes\Builds\BuildModelDataTemplateSelector.cs" />
+    <Compile Include="TV\StreamInformation.cs" />
+    <Compile Include="TV\StreamInformationConfiguration.cs" />
+    <Compile Include="TV\TVStreamsView.xaml.cs">
+      <DependentUpon>TVStreamsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TV\TVStreamsViewModel.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AppBootstrapper.cs" />
+    <Page Include="PollingContainerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Builds\BuildsDataTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ConvertersAndSelectors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\GeneralStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Builds\TeamCityBuildsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TV\TVStreamsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Themes\Fonts\SegoeWP-Black.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWP-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWP-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWP-Semibold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWP-Semilight.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWP.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWPN-Black.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWPN-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWPN-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWPN-Semibold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWPN-Semilight.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Fonts\SegoeWPN.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RHAL9000.Core\RHAL9000.Core.csproj">
+      <Project>{BAAF86AE-4B35-47FC-A2EC-487EE1041389}</Project>
+      <Name>RHAL9000.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RHAL9000.Monitors.Builds\RHAL9000.Monitors.Builds.csproj">
+      <Project>{3A2984A8-171B-4440-87D5-847AD79E7991}</Project>
+      <Name>RHAL9000.Monitors.Builds</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RHAL9000.Views.Configuration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\HAL-9000-icon.png" />
+    <Resource Include="Themes\HAL-9000.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="HAL-9000.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
