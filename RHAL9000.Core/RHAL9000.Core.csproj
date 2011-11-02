@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Configuration\CoreTypeLookup.cs" />
     <Compile Include="Configuration\TypeLookupDiscovery.cs" />
-    <Compile Include="DefaultTypeBuilder.cs" />
+    <Compile Include="Configuration\DefaultTypeBuilder.cs" />
     <Compile Include="HttpXmlAccessor.cs" />
     <Compile Include="IDataSource.cs" />
     <Compile Include="IPollingMonitor.cs" />

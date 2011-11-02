@@ -3,10 +3,8 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using RHAL9000.Core;
-using RHAL9000.Core.Configuration;
 
-namespace RHAL9000.Testing.TDD
+namespace RHAL9000.Core.Configuration
 {
     public class DefaultTypeBuilder
     {
