@@ -60,9 +60,11 @@
     <Compile Include="BuildModel.cs" />
     <Compile Include="BuildProgress.cs" />
     <Compile Include="BuildProject.cs" />
+    <Compile Include="BuildProjectConfiguration.cs" />
     <Compile Include="BuildProjectModel.cs" />
     <Compile Include="BuildResult.cs" />
     <Compile Include="BuildStatus.cs" />
+    <Compile Include="BuildTypeConfiguration.cs" />
     <Compile Include="BuildTypeModel.cs" />
     <Compile Include="FullBuildResult.cs" />
     <Compile Include="IBuildClient.cs" />
@@ -71,12 +73,15 @@
     <Compile Include="IBuildProject.cs" />
     <Compile Include="IBuildResult.cs" />
     <Compile Include="IBuildType.cs" />
+    <Compile Include="IDataSource.cs" />
     <Compile Include="IFullBuildResult.cs" />
+    <Compile Include="Importance.cs" />
     <Compile Include="ISummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Summary.cs" />
     <Compile Include="TeamCityBuildMonitor.cs" />
     <Compile Include="TeamCityClient.cs" />
+    <Compile Include="TeamCityDataTypeLookup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

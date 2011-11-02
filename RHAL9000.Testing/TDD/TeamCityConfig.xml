@@ -11,18 +11,29 @@
     <StreamUris>mms://live1.wm.skynews.servecast.net/skynews_wmlz_live300k</StreamUris>
   </View>-->
   <DataSources>
-    <TeamCityBuildMonitor id="local" uri="http://localhost:8080" username="apiuser" password="pa55w0rd">
-      <BuildType id="bt2"/>
-      <BuildType id="bt3"/>
-      <BuildProject id="project2"/>
-    </TeamCityBuildMonitor>
+    <BuildMonitor id="local">
+      <TeamCityClient>
+        <Uri>http://localhost:8080</Uri>
+        <Username>apiuser</Username>
+        <Password>pa55w0rd</Password>
+      </TeamCityClient>
+      <BuildTypes>
+        <BuildType id="bt2" importance="High"/>
+        <BuildType id="bt3" importance="Normal"/>
+      </BuildTypes>
+      <BuildProjects>
+        <BuildProject id="project2" importance="Low"/>
+      </BuildProjects>
+    </BuildMonitor>
   </DataSources>
   <Personality></Personality>
   <Outlooks>
     <CompositeOutlook id="mixedDevOps">
       <TeamCityBuilds datasourceId="local" id="cdmBuilds" title="CDM Builds"/>
       <TvStreams id="tv">
-        <Stream name="Sky News" uri="mms://live1.wm.skynews.servecast.net/skynews_wmlz_live300k" />
+        <Stream name="Sky News">
+          <Uri>mms://live1.wm.skynews.servecast.net/skynews_wmlz_live300k</Uri>
+        </Stream>
       </TvStreams>
     </CompositeOutlook>
   </Outlooks>

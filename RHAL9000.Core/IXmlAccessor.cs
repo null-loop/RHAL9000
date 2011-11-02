@@ -1,10 +1,11 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 
 namespace RHAL9000.Core
 {
     public interface IXmlAccessor
     {
-        string BaseUrl { get; }
+        Uri BaseUrl { get; }
         XElement GetXml(string path);
         XElement GetXml();
     }

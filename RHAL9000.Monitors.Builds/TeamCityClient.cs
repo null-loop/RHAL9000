@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Xml.Linq;
 using RHAL9000.Core;
 
 namespace RHAL9000.Monitors.Builds
 {
-    public sealed class TeamCityClient : IBuildClient
+    public class TeamCityClient : IBuildClient
     {
-        // api : http://build.caternet.co.uk:8100/httpAuth/app/rest/application.wadl
-
         private const string XmlDateTimeFormatString = "yyyyMMddTHHmmsszzz";
-        private static readonly CultureInfo info = new CultureInfo("en-GB", true);
+        private static readonly CultureInfo Culture = new CultureInfo("en-GB", true);
 
-        public TeamCityClient(string baseUrl, string username, string password)
+        public TeamCityClient(Uri baseUrl, string username, string password)
             : this(new HttpXmlAccessor(baseUrl, "/httpAuth/app/rest/", username, password))
         {
         }
 
         public TeamCityClient(IXmlAccessor accessor)
         {
+            if (accessor == null) throw new ArgumentNullException("accessor");
             Accessor = accessor;
         }
 
@@ -48,7 +48,7 @@ namespace RHAL9000.Monitors.Builds
                        {
                            Id = xml.Attribute("id").Value,
                            Name = xml.Attribute("name").Value,
-                           WebUri = new Uri(xml.Attribute("webUrl").Value),
+                           WebUrl = new Uri(xml.Attribute("webUrl").Value),
                            Archived = bool.Parse(xml.Attribute("archived").Value),
                            Description = xml.Attribute("description").Value,
                            BuildTypes =
@@ -67,7 +67,7 @@ namespace RHAL9000.Monitors.Builds
                            Name = xml.Attribute("name").Value,
                            BuildProjectId = xml.Element("project").Attribute("id").Value,
                            Description = xml.Attribute("description") != null ? xml.Attribute("description").Value : "",
-                           WebUri = new Uri(xml.Attribute("webUrl").Value),
+                           WebUrl = new Uri(xml.Attribute("webUrl").Value),
                            Paused = bool.Parse(xml.Attribute("paused").Value),
                            RunParameters =
                                xml.Element("runParameters").Elements("property").ToDictionary(
@@ -153,7 +153,7 @@ namespace RHAL9000.Monitors.Builds
 
         #endregion
 
-        private static BuildStatus ConvertBuildStatusString(string value)
+        internal static BuildStatus ConvertBuildStatusString(string value)
         {
             switch (value)
             {
@@ -170,7 +170,7 @@ namespace RHAL9000.Monitors.Builds
 
         private static DateTime ConvertXmlDateTime(string dateTimeString)
         {
-            return DateTime.ParseExact(dateTimeString, XmlDateTimeFormatString, info);
+            return DateTime.ParseExact(dateTimeString, XmlDateTimeFormatString, Culture);
         }
     }
 }

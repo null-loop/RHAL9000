@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Linq;
+using Caliburn.Micro;
 using RHAL9000.Core;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,26 @@ using RHAL9000.Monitors.Builds;
 
 namespace RHAL9000.Display.Builds
 {
-    public class TeamCityBuildsViewModel : SingleMonitorPollingViewModel
+    public class TeamCityBuildsViewModel : Screen
     {
+        private IBuildMonitor BuildMonitor { get; set; }
         private IObservable<BuildModel> _eventSource;
         private IDisposable _eventHandler;
 
         private readonly object _projectLoadLock = new object();
+
+        public TeamCityBuildsViewModel(IBuildMonitor buildMonitor)
+        {
+            if (buildMonitor == null) throw new ArgumentNullException("buildMonitor");
+
+            BuildMonitor = buildMonitor;
+        }
+
+        private void BindBuildMonitor(IBuildMonitor buildMonitor)
+        {
+            _eventSource = Observable.FromEventPattern<BuildEventArgs>(buildMonitor, "BuildUpdated").Select(e => e.EventArgs.Build);
+            _eventHandler = _eventSource.ObserveOnDispatcher().Subscribe(ReceiveBuild);
+        }
 
         private ObservableCollection<BuildProjectModel> _projects;
 
@@ -26,45 +41,25 @@ namespace RHAL9000.Display.Builds
             }
         }
 
-        protected override IPollingMonitor CreateMonitor(Dictionary<string, string> configuration)
+        protected override void OnActivate()
         {
-            var username = configuration["Username"];
-            var password = configuration["Password"];
-            var uri = configuration["Uri"];
-            var buildTypeIds = new string[0];
-
-            if (configuration.ContainsKey("BuildTypeIds"))
+            if (_eventHandler == null)
             {
-                buildTypeIds = configuration["BuildTypeIds"].Split(',');
+                BindBuildMonitor(BuildMonitor);
             }
-
-            var client = new TeamCityClient(uri, username, password);
-
-            var monitor = new TeamCityBuildMonitor(client, buildTypeIds);
-
-            _eventSource = Observable.FromEventPattern<BuildEventArgs>(monitor, "BuildUpdated").Select(e=>e.EventArgs.Build);
-            
-            _eventHandler = _eventSource.ObserveOnDispatcher().Subscribe(ReceiveBuild);
-
-            return monitor;
         }
 
-        public override void Deactivate(bool close)
+        protected override void OnDeactivate(bool close)
         {
-            if (close && _eventHandler!=null)
+            if (_eventHandler != null)
             {
                 _eventHandler.Dispose();
             }
         }
 
-        public override void Poll()
+        public TimeSpan TimeUntilNextPoll
         {
-            PollingMonitor.Poll();
-        }
-
-        public override TimeSpan TimeUntilNextPoll
-        {
-            get { return PollingMonitor.TimeUntilNextPoll; }
+            get { return BuildMonitor.TimeUntilNextPoll; }
         }
 
         private void ReceiveBuild(BuildModel build)
@@ -75,9 +70,7 @@ namespace RHAL9000.Display.Builds
                 {
                     if (Projects == null) 
                     {
-                        var m = PollingMonitor as TeamCityBuildMonitor;
-
-                        Projects = new ObservableCollection<BuildProjectModel>(m.GetAllBuildProjects());
+                        Projects = new ObservableCollection<BuildProjectModel>(BuildMonitor.GetAllBuildProjects());
                     }
                 }
             }

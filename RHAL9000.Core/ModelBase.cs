@@ -9,15 +9,13 @@ namespace RHAL9000.Core
     {
         protected bool SetField<T>(ref T field, T value, Expression<Func<T>> propertyExpression)
         {
-            bool changed = !EqualityComparer<T>.Default.Equals(field, value);
-
-            if (changed)
+            if (!EqualityComparer<T>.Default.Equals(field, value))
             {
                 field = value;
-                base.NotifyOfPropertyChange(propertyExpression);
+                NotifyOfPropertyChange(propertyExpression);
             }
 
-            return changed;
+            return !EqualityComparer<T>.Default.Equals(field, value);
         }
     }
 }

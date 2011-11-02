@@ -12,9 +12,9 @@ namespace RHAL9000.Core
     {
         public static XNamespace Xhtml = XNamespace.Get("http://www.w3.org/1999/xhtml");
 
-        private static readonly ILog Log = LogManager.GetLogger(typeof (HttpXmlAccessor));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof (HttpXmlAccessor));
 
-        public HttpXmlAccessor(string baseUrl, string urlPrefix, string username, string password)
+        public HttpXmlAccessor(Uri baseUrl, string urlPrefix, string username, string password)
         {
             BaseUrl = baseUrl;
             UrlPrefix = urlPrefix;
@@ -28,7 +28,7 @@ namespace RHAL9000.Core
 
         #region IXmlAccessor Members
 
-        public string BaseUrl { get; private set; }
+        public Uri BaseUrl { get; private set; }
 
         public XElement GetXml(string path)
         {
@@ -37,22 +37,30 @@ namespace RHAL9000.Core
 
             try
             {
-                Log.DebugFormat("Sending request for {0}", requestUri);
+                Logger.DebugFormat("Sending request for {0}", requestUri);
 
-                using (WebResponse response = request.GetResponse())
+                using (var response = request.GetResponse() as HttpWebResponse)
                 {
-                    var httpResponse = (HttpWebResponse) response;
+                    if (response == null)
+                        throw new InvalidOperationException("Received null or non HttpWebResponse");
 
-                    Log.DebugFormat("Received response code {0}", httpResponse.StatusCode);
+                    Logger.DebugFormat("Received response code {0}", response.StatusCode);
 
-                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    using (var responseStream = response.GetResponseStream())
                     {
-                        var settings = new XmlReaderSettings
-                                           {
-                                               DtdProcessing = DtdProcessing.Parse,
-                                               XmlResolver = new XmlPreloadedResolver(XmlKnownDtds.Xhtml10)
-                                           };
-                        return XDocument.Load(XmlReader.Create(reader, settings)).Root;
+                        if (responseStream == null)
+                            throw new InvalidOperationException("Received null response stream");
+
+                        using (var reader = new StreamReader(responseStream))
+                        {
+                            var settings = new XmlReaderSettings
+                            {
+                                DtdProcessing = DtdProcessing.Parse,
+                                XmlResolver = new XmlPreloadedResolver(XmlKnownDtds.Xhtml10)
+                            };
+                            return XDocument.Load(XmlReader.Create(reader, settings)).Root;
+                        }
+                        
                     }
                 }
             }
@@ -60,17 +68,28 @@ namespace RHAL9000.Core
             {
                 var response = ex.Response as HttpWebResponse;
 
-                if (response != null && ex.Status == WebExceptionStatus.ProtocolError &&
-                    response.StatusCode == HttpStatusCode.NotFound)
+                if (response != null)
                 {
-                    Log.DebugFormat("Received response code {0}", response.StatusCode);
+                    Logger.DebugFormat("Received response code {0}", response.StatusCode);
 
-                    return null;
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        return null;
+                    }
                 }
 
-                Log.Error("Error occurred getting " + requestUri, ex);
-                throw new XmlAccessException("Error occurred attempting to access URI : " + requestUri, ex);
+                throw CreateXmlAccessException(requestUri, ex);
             }
+            catch (Exception ex)
+            {
+                throw CreateXmlAccessException(requestUri, ex);
+            }
+        }
+
+        private static Exception CreateXmlAccessException(Uri requestUri, Exception ex)
+        {
+            Logger.Error("Error occurred getting " + requestUri, ex);
+            return new XmlAccessException("Error occurred attempting to access URI : " + requestUri, ex);
         }
 
         public XElement GetXml()
@@ -84,19 +103,19 @@ namespace RHAL9000.Core
         {
             if (!string.IsNullOrEmpty(UrlPrefix) && !string.IsNullOrEmpty(path))
             {
-                return new Uri(new Uri(BaseUrl, UriKind.Absolute), UrlPrefix + path);
+                return new Uri(BaseUrl, UrlPrefix + path);
             }
             if (string.IsNullOrEmpty(UrlPrefix) && !string.IsNullOrEmpty(path))
             {
-                return new Uri(new Uri(BaseUrl, UriKind.Absolute), path);
+                return new Uri(BaseUrl, path);
             }
             if (string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(UrlPrefix))
             {
-                return new Uri(new Uri(BaseUrl, UriKind.Absolute), UrlPrefix);
+                return new Uri(BaseUrl, UrlPrefix);
             }
             if (string.IsNullOrEmpty(UrlPrefix) && string.IsNullOrEmpty(path))
             {
-                return new Uri(BaseUrl, UriKind.Absolute);
+                return BaseUrl;
             }
             throw new InvalidOperationException("Cannot formulate request URI");
         }

@@ -7,7 +7,7 @@ using RHAL9000.Core;
 
 namespace RHAL9000.Display.TV
 {
-    public class TVStreamsViewModel : ModelBase, IPollingViewModel, ICalScreen
+    public class TVStreamsViewModel : ModelBase
     {
         private List<StreamInformationConfiguration> _backlog = new List<StreamInformationConfiguration>();
         private StreamInformation _currentStream;

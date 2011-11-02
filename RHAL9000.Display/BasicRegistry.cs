@@ -2,6 +2,7 @@
 using RHAL9000.Core;
 using RHAL9000.Display.Builds;
 using RHAL9000.Display.TV;
+using RHAL9000.Monitors.Builds;
 using StructureMap.Configuration.DSL;
 
 namespace RHAL9000.Display
@@ -16,9 +17,14 @@ namespace RHAL9000.Display
 
         public BasicRegistry AddViews()
         {
+            // structuremap-for-use
+            // structuremap-for-use-named
+            // structuremap-for-singleton-use
+
             For<IShell>().Singleton().Use<ShellViewModel>();
-            For<ICalScreen>().Use<TeamCityBuildsViewModel>().Named("TeamCityBuilds");
-            For<ICalScreen>().Use<TVStreamsViewModel>().Named("TVStreams");
+            For<IScreen>().Use<TeamCityBuildsViewModel>().Named("TeamCityBuilds");
+            //For<IScreen>().Use<TVStreamsViewModel>().Named("TVStreams");
+
             return this;
         }
     }

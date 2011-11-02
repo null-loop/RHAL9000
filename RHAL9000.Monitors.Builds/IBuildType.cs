@@ -5,7 +5,7 @@ namespace RHAL9000.Monitors.Builds
 {
     public interface IBuildType : ISummary
     {
-        Uri WebUri { get; }
+        Uri WebUrl { get; }
         string Description { get; }
         bool Paused { get; }
         string BuildProjectId { get; }
@@ -18,7 +18,7 @@ namespace RHAL9000.Monitors.Builds
 
         public string Name { get; set; }
         public string Id { get; set; }
-        public Uri WebUri { get; set; }
+        public Uri WebUrl { get; set; }
         public string Description { get; set; }
         public bool Paused { get; set; }
         public string BuildProjectId { get; set; }

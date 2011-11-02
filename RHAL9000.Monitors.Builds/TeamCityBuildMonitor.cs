@@ -13,13 +13,16 @@ namespace RHAL9000.Monitors.Builds
         private List<BuildProjectModel> _buildProjects;
         private IBuildProgress _inProgressBuild;
 
-        public TeamCityBuildMonitor(IBuildClient client, params string[] buildTypeIds)
+        public TeamCityBuildMonitor(IBuildClient client, IList<BuildTypeConfiguration> buildTypes, IList<BuildProjectConfiguration> buildProjects)
         {
             Client = client;
-            BuildTypeIds = buildTypeIds;
+            BuildTypes = buildTypes;
+            BuildProjects = buildProjects;
         }
 
         private IBuildClient Client { get; set; }
+        private IEnumerable<BuildTypeConfiguration> BuildTypes { get; set; }
+        private IEnumerable<BuildProjectConfiguration> BuildProjects { get; set; }
         private string[] BuildTypeIds { get; set; }
 
         public bool HasInProgressBuild
@@ -51,6 +54,8 @@ namespace RHAL9000.Monitors.Builds
                 else return TimeSpan.FromSeconds(10);
             }
         }
+
+        public bool Stopping { get; set; }
 
         public event EventHandler<BuildEventArgs> BuildUpdated;
 
@@ -91,7 +96,7 @@ namespace RHAL9000.Monitors.Builds
                                     {
                                         Id = project.Id,
                                         Name = project.Name,
-                                        WebUri = project.WebUri,
+                                        WebUri = project.WebUrl,
                                         Description = project.Description,
                                         Archived = project.Archived,
                                         BuildTypes =
@@ -103,7 +108,7 @@ namespace RHAL9000.Monitors.Builds
                                                                 Description = b.Description,
                                                                 Paused = b.Paused,
                                                                 RunParameters = b.RunParameters,
-                                                                WebUri = b.WebUri
+                                                                WebUri = b.WebUrl
                                                             }).ToList()
                                     }).ToArray();
 

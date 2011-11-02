@@ -7,7 +7,7 @@ namespace RHAL9000.Monitors.Builds
     {
         #region IBuildProject Members
 
-        public Uri WebUri { get; set; }
+        public Uri WebUrl { get; set; }
         public string Description { get; set; }
         public bool Archived { get; set; }
         public IEnumerable<ISummary> BuildTypes { get; set; }

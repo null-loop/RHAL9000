@@ -49,18 +49,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CoreTypeLookup.cs" />
+    <Compile Include="Configuration\TypeLookupDiscovery.cs" />
+    <Compile Include="DefaultTypeBuilder.cs" />
     <Compile Include="HttpXmlAccessor.cs" />
-    <Compile Include="IAcceptsConfiguration.cs" />
-    <Compile Include="ICalScreen.cs" />
+    <Compile Include="IDataSource.cs" />
     <Compile Include="IPollingMonitor.cs" />
-    <Compile Include="IPollingViewModel.cs" />
+    <Compile Include="IRequiresInitialisation.cs" />
+    <Compile Include="IRequiresPolling.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="Configuration\ITypeLookup.cs" />
     <Compile Include="IXmlAccessor.cs" />
+    <Compile Include="MissingLookupException.cs" />
     <Compile Include="ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewConfiguration.cs" />
+    <Compile Include="RxPollingMonitor.cs" />
+    <Compile Include="Configuration\TypeLookup.cs" />
     <Compile Include="XmlAccessException.cs" />
-    <Compile Include="XmlConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

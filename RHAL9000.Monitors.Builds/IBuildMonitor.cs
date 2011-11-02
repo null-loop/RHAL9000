@@ -4,7 +4,7 @@ using RHAL9000.Core;
 
 namespace RHAL9000.Monitors.Builds
 {
-    public interface IBuildMonitor : IPollingMonitor
+    public interface IBuildMonitor : IRequiresPolling, IRequiresInitialisation, IDataSource
     {
         event EventHandler<BuildEventArgs> BuildUpdated;
         IEnumerable<BuildProjectModel> GetAllBuildProjects();
