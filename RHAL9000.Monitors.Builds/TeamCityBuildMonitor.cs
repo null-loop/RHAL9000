@@ -5,7 +5,7 @@ using log4net;
 
 namespace RHAL9000.Monitors.Builds
 {
-    public class TeamCityBuildMonitor : IBuildMonitor
+    public class TeamCityBuildMonitor : DataSourceBase, IBuildMonitor
     {
         //TODO:Monitor multiple builds.
         private readonly List<string> _completedBuildIds = new List<string>();
@@ -21,8 +21,8 @@ namespace RHAL9000.Monitors.Builds
         }
 
         private IBuildClient Client { get; set; }
-        private IEnumerable<BuildTypeConfiguration> BuildTypes { get; set; }
-        private IEnumerable<BuildProjectConfiguration> BuildProjects { get; set; }
+        private IList<BuildTypeConfiguration> BuildTypes { get; set; }
+        private IList<BuildProjectConfiguration> BuildProjects { get; set; }
         private string[] BuildTypeIds { get; set; }
 
         public bool HasInProgressBuild
@@ -48,10 +48,8 @@ namespace RHAL9000.Monitors.Builds
 
         public TimeSpan TimeUntilNextPoll
         {
-            get
-            {
-                if (HasInProgressBuild) return TimeSpan.FromSeconds(10);
-                else return TimeSpan.FromSeconds(10);
+            get {
+                return TimeSpan.FromSeconds(10);
             }
         }
 

@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="{Binding Path=CurrentStream.Name}" Style="{StaticResource ResourceKey=LargeNumberStyle}"/>
+        <TextBlock Grid.Row="0" Text="{Binding Path=CurrentStream.Name}"/>
         <MediaElement Grid.Row="1" Source="{Binding Path=CurrentStream.Uri}"/>
     </Grid>
 </UserControl>

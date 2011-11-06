@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace RHAL9000.Core.Configuration
 {
-    public class DefaultTypeBuilder
+    public class DefaultTypeBuilder : ITypeBuilder
     {
         private ITypeLookup[] TypeLookups { get; set; }
 
@@ -57,7 +57,7 @@ namespace RHAL9000.Core.Configuration
                 throw new MissingMemberException(string.Format("Cannot find ctor for type {0}", elementType.FullName));
 
             // create parameter type instances...
-            var ctorParamInstances = element.Elements().Select(Build);
+            var ctorParamInstances = element.Elements().Select(Build).ToArray();
             // allowing for string content only...
             if (stringContent != null && !ctorParamInstances.Any())
                 if (elementType == typeof(string))
@@ -66,7 +66,7 @@ namespace RHAL9000.Core.Configuration
                     ctorParamInstances = new[] {stringContent};
 
             // create instance
-            var instance = Activator.CreateInstance(elementType, ctorParamInstances.ToArray());
+            var instance = Activator.CreateInstance(elementType, ctorParamInstances);
 
             // attributes -> map simple types to set properties
             foreach(var property in elementType.GetProperties(BindingFlags.SetProperty | BindingFlags.Public))
@@ -81,6 +81,11 @@ namespace RHAL9000.Core.Configuration
             }           
 
             return instance;
+        }
+
+        public T Build<T>(XElement element) where T : class
+        {
+            return Build(element) as T;
         }
 
         private static string GetStringContent(XElement element)

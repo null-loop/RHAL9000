@@ -13,6 +13,7 @@ namespace RHAL9000.Display
         {
             For<IWindowManager>().Singleton().Use<WindowManager>();
             For<IEventAggregator>().Singleton().Use<EventAggregator>();
+            For<IPollingMonitor>().Singleton().Use<RxPollingMonitor>();
         }
 
         public BasicRegistry AddViews()
@@ -21,8 +22,7 @@ namespace RHAL9000.Display
             // structuremap-for-use-named
             // structuremap-for-singleton-use
 
-            For<IShell>().Singleton().Use<ShellViewModel>();
-            For<IScreen>().Use<TeamCityBuildsViewModel>().Named("TeamCityBuilds");
+            //For<IScreen>().Use<TeamCityBuildsViewModel>().Named("TeamCityBuilds");
             //For<IScreen>().Use<TVStreamsViewModel>().Named("TVStreams");
 
             return this;

@@ -1,0 +1,63 @@
+﻿<Window x:Class="RHAL9000.Display.ApplicationCoreView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+            Title="HAL9001" 
+            Height="1080" 
+            Width="1920" 
+            AllowsTransparency="false"
+            WindowState="Maximized" 
+            Background="Black"
+            Icon="/RHAL9000.Display;component/Themes/HAL-9000-icon.png"    
+            WindowStyle="None"
+             d:DesignHeight="768" d:DesignWidth="1024">
+	<Window.Resources>
+		<Style x:Key="DataSourceShortNameStyle" TargetType="{x:Type TextBlock}">
+			<Setter Property="Foreground" Value="#FF6A6A6A"/>
+			<Setter Property="FontSize" Value="16"/>
+		</Style>
+	</Window.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+			<TextBlock Style="{DynamicResource SmallViewHeading}">data sources</TextBlock>
+			<ItemsControl Background="#D8000000" x:Name="WrapList" ItemTemplate="{DynamicResource DataSourceTemplate}" ItemsSource="{Binding Path=DataSources}">
+				<ItemsControl.Resources>
+					<DataTemplate x:Key="DataSourceTemplate">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding Path=ShortName}" Style="{DynamicResource DataSourceShortNameStyle}" Grid.Column="0" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Path=Description}" Style="{DynamicResource DataSourceShortNameStyle}" Grid.Column="0" VerticalAlignment="Center"/>
+						</Grid>
+					</DataTemplate>
+				</ItemsControl.Resources>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<WrapPanel IsItemsHost="True" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Vertical" MaxHeight="1080"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+			</ItemsControl>
+		</StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Width="100" HorizontalAlignment="Left">
+            <Image Source="Themes/HAL-9000-icon.png" Stretch="Uniform" Height="80"/>
+            <TextBlock Text="RHAL 9000" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#5EEEEEEE" FontFamily="OCR A Extended" Margin="0,0,0,0"/>
+        </StackPanel>
+        <TextBlock Text="rhal.core" Grid.Row="1" Grid.ColumnSpan="2" Style="{DynamicResource AppBackgroundLabelStyle}"/>
+	</Grid>
+</Window>

@@ -66,6 +66,7 @@
     <Compile Include="BuildStatus.cs" />
     <Compile Include="BuildTypeConfiguration.cs" />
     <Compile Include="BuildTypeModel.cs" />
+    <Compile Include="DataSourceBase.cs" />
     <Compile Include="FullBuildResult.cs" />
     <Compile Include="IBuildClient.cs" />
     <Compile Include="IBuildMonitor.cs" />

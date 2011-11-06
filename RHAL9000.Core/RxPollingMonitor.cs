@@ -25,6 +25,7 @@ namespace RHAL9000.Core
 
         public void Stop(IRequiresPolling requiresPolling)
         {
+            requiresPolling.Stopping = true;
             if (!_polling.Contains(requiresPolling))
                 return;
 

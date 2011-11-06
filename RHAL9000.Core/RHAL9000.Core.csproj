@@ -49,11 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AwarenessStateUpdatedEventArgs.cs" />
+    <Compile Include="Configuration\ApplicationCore.cs" />
+    <Compile Include="Configuration\ApplicationCoreFactory.cs" />
     <Compile Include="Configuration\CoreTypeLookup.cs" />
+    <Compile Include="Configuration\ITypeBuilder.cs" />
     <Compile Include="Configuration\TypeLookupDiscovery.cs" />
     <Compile Include="Configuration\DefaultTypeBuilder.cs" />
+    <Compile Include="HasAwarnessStatesUpdatedEventArgs.cs" />
     <Compile Include="HttpXmlAccessor.cs" />
+    <Compile Include="Configuration\IApplicationCore.cs" />
+    <Compile Include="HumanAttentionRequirement.cs" />
+    <Compile Include="IAwarenessState.cs" />
     <Compile Include="IDataSource.cs" />
+    <Compile Include="IHasAwarenessStates.cs" />
     <Compile Include="IPollingMonitor.cs" />
     <Compile Include="IRequiresInitialisation.cs" />
     <Compile Include="IRequiresPolling.cs" />

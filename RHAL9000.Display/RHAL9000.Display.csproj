@@ -16,6 +16,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -107,22 +109,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationCoreView.xaml.cs">
+      <DependentUpon>ApplicationCoreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationCoreViewModel.cs" />
     <Compile Include="BasicRegistry.cs" />
+    <Compile Include="BootStrapException.cs" />
     <Compile Include="Builds\TeamCityBuildsView.xaml.cs">
       <DependentUpon>TeamCityBuildsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Builds\TeamCityBuildsViewModel.cs" />
     <Compile Include="Builds\TeamCityViewTypeLookup.cs" />
+    <Compile Include="DataSourceView.xaml.cs">
+      <DependentUpon>DataSourceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataSourceViewModel.cs" />
+    <Compile Include="IApplicationCoreViewModel.cs" />
+    <Compile Include="IDataSourceViewModel.cs" />
+    <Compile Include="IOutlookViewModel.cs" />
     <Compile Include="Themes\BooleanToVisibilityConverter.cs" />
     <Compile Include="FakeTeamCityClient.cs" />
     <Compile Include="Ioc.cs" />
-    <Compile Include="PollingContainerView.xaml.cs">
-      <DependentUpon>PollingContainerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShellView.xaml.cs">
-      <DependentUpon>ShellView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShellViewModel.cs" />
     <Compile Include="Themes\Builds\BuildModelDataTemplateSelector.cs" />
     <Compile Include="TV\StreamInformation.cs" />
     <Compile Include="TV\StreamInformationConfiguration.cs" />
@@ -135,13 +142,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
-    <Page Include="PollingContainerView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="ApplicationCoreView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShellView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="DataSourceView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Builds\BuildsDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -237,7 +244,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RHAL9000.Views.Configuration.xml">
+    <None Include="RHAL9000.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
@@ -248,6 +255,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="HAL-9000.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SampleData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

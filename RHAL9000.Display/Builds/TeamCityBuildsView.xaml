@@ -12,7 +12,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Builds" Style="{StaticResource ResourceKey=MajorHeadingStyle}" Margin="-3,0,0,0"/>
+        <TextBlock Grid.Row="0" Text="Builds" Margin="-3,0,0,0"/>
         <ItemsControl Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=Projects}" BorderThickness="0" DataContext="{Binding}" ItemTemplate="{StaticResource ResourceKey=ProjectTemplate}" Margin="0,-8,0,0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
