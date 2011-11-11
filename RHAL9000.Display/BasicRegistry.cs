@@ -1,8 +1,5 @@
 ﻿using Caliburn.Micro;
 using RHAL9000.Core;
-using RHAL9000.Display.Builds;
-using RHAL9000.Display.TV;
-using RHAL9000.Monitors.Builds;
 using StructureMap.Configuration.DSL;
 
 namespace RHAL9000.Display
@@ -14,6 +11,7 @@ namespace RHAL9000.Display
             For<IWindowManager>().Singleton().Use<WindowManager>();
             For<IEventAggregator>().Singleton().Use<EventAggregator>();
             For<IPollingMonitor>().Singleton().Use<RxPollingMonitor>();
+            For<IShell>().Singleton().Use<ShellViewModel>();
         }
 
         public BasicRegistry AddViews()

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using RHAL9000.Core;
+﻿using System.Collections.Generic;
 using RHAL9000.Core.Configuration;
-using RHAL9000.Monitors.Builds;
 
-namespace RHAL9000.Testing.TDD
+namespace RHAL9000.Monitors.Builds
 {
     public class TeamCityDataTypeLookup : TypeLookup
     {

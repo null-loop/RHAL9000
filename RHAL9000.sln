@@ -82,4 +82,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\RHAL9000.ndproj"
+	EndGlobalSection
 EndGlobal

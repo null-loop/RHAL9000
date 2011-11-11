@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AwarenessState.cs" />
     <Compile Include="AwarenessStateUpdatedEventArgs.cs" />
     <Compile Include="Configuration\ApplicationCore.cs" />
     <Compile Include="Configuration\ApplicationCoreFactory.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RxPollingMonitor.cs" />
     <Compile Include="Configuration\TypeLookup.cs" />
+    <Compile Include="ShellViewModel.cs" />
     <Compile Include="XmlAccessException.cs" />
   </ItemGroup>
   <ItemGroup>

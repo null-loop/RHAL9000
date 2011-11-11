@@ -12,3 +12,4 @@ _ReSharper.*
 *.rptproj.user
 *.db
 *.teamcity.user
+NDependOut

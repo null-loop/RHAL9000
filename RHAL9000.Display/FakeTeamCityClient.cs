@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using RHAL9000.Core;
 using RHAL9000.Monitors.Builds;
 
 namespace RHAL9000.Display

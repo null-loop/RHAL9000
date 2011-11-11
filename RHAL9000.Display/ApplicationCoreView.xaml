@@ -54,10 +54,16 @@
 				</ItemsControl.ItemsPanel>
 			</ItemsControl>
 		</StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0" Width="100" HorizontalAlignment="Left">
-            <Image Source="Themes/HAL-9000-icon.png" Stretch="Uniform" Height="80"/>
-            <TextBlock Text="RHAL 9000" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#5EEEEEEE" FontFamily="OCR A Extended" Margin="0,0,0,0"/>
-        </StackPanel>
-        <TextBlock Text="rhal.core" Grid.Row="1" Grid.ColumnSpan="2" Style="{DynamicResource AppBackgroundLabelStyle}"/>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Grid.Row="0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Image Source="Themes/HAL-9000-icon.png" Stretch="Uniform" Height="80"/>
+                <TextBlock Text="RHAL 9000" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="#5EEEEEEE" FontFamily="OCR A Extended" Margin="0,0,0,0"/>
+            </StackPanel>
+            <TextBlock Text="rhal.core" Grid.Column="2" Style="{DynamicResource AppBackgroundLabelStyle}"/>
+        </Grid>
 	</Grid>
 </Window>

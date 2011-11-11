@@ -8,7 +8,12 @@ namespace RHAL9000.Core.Configuration
     public interface IApplicationCore
     {
         IEnumerable<IDataSource> DataSources { get; }
-        IEnumerable<IScreen> Outlooks { get; }
+        IEnumerable<IOutlook> Outlooks { get; }
+    }
+
+    public interface IOutlook
+    {
+        string Id { get; }
     }
 
     //TODO:Introduce XML namespaces

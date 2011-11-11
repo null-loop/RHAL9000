@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using RHAL9000.Core;
+﻿using RHAL9000.Core;
 
 namespace RHAL9000.Display
 {

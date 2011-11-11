@@ -120,6 +120,7 @@
     </Compile>
     <Compile Include="Builds\TeamCityBuildsViewModel.cs" />
     <Compile Include="Builds\TeamCityViewTypeLookup.cs" />
+    <Compile Include="CoreDisplayTypeLookup.cs" />
     <Compile Include="DataSourceView.xaml.cs">
       <DependentUpon>DataSourceView.xaml</DependentUpon>
     </Compile>

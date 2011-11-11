@@ -67,9 +67,11 @@ namespace RHAL9000.Core.Configuration
 
             // create instance
             var instance = Activator.CreateInstance(elementType, ctorParamInstances);
-
+            
             // attributes -> map simple types to set properties
-            foreach(var property in elementType.GetProperties(BindingFlags.SetProperty | BindingFlags.Public))
+            var properties = elementType.GetProperties().Where(e => e.CanWrite);
+
+            foreach (var property in properties)
             {
                 var info = property;
                 var attribute = element.Attributes().Where(a => a.Name == info.Name || a.Name == LoweredFirst(info.Name)).FirstOrDefault();
@@ -145,6 +147,13 @@ namespace RHAL9000.Core.Configuration
                     foundCtor = ctor;
 
                 if (foundCtor != null) break;
+            }
+
+            if (foundCtor==null)
+            {
+                var defaultCtor = elementType.GetConstructors().Where(c => c.IsPublic && c.GetParameters().Count() == 0).FirstOrDefault();
+
+                if (defaultCtor != null) foundCtor = defaultCtor;
             }
 
             return foundCtor;

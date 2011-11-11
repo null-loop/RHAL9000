@@ -14,7 +14,7 @@ namespace RHAL9000.Core.Configuration
             if (root==null) throw new InvalidOperationException("No root element");
 
             var dataSources = root.Element("DataSources").Elements().Select(builder.Build<IDataSource>);
-            var outlooks = root.Element("Outlooks").Elements().Select(builder.Build<IScreen>);
+            var outlooks = root.Element("Outlooks").Elements().Select(builder.Build<IOutlook>);
 
             return new ApplicationCore(dataSources, outlooks);
         }

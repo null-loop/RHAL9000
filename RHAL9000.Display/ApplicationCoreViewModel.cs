@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
 using RHAL9000.Core;
@@ -6,18 +7,29 @@ using RHAL9000.Core.Configuration;
 
 namespace RHAL9000.Display
 {
-    public class ApplicationCoreViewModel : ModelBase, IApplicationCoreViewModel
+    public class ApplicationCoreViewModel : Screen, IApplicationCoreViewModel
     {
-        private IApplicationCore Core { get; set; }
+        public IApplicationCore Core { get; set; }
+        
+        private IObservableCollection<IDataSourceViewModel> _dataSources;
+
+        protected override void OnActivate()
+        {
+            if (Core==null)
+            {
+                Core = Ioc.Container.GetInstance<IApplicationCore>();
+            }
+            base.OnActivate();
+        }
 
         public ApplicationCoreViewModel(IApplicationCore core)
         {
             Core = core;
-            DataSources = new BindableCollection<IDataSourceViewModel>(core.DataSources.Select(ds => new DataSourceViewModel(ds)));
         }
 
-
-        private IObservableCollection<IDataSourceViewModel> _dataSources;
+        public ApplicationCoreViewModel()
+        {
+        }
 
         public IObservableCollection<IDataSourceViewModel> DataSources
         {
@@ -44,5 +56,7 @@ namespace RHAL9000.Display
                 NotifyOfPropertyChange(() => Outlooks);
             }
         }
+
+        public string Id { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace RHAL9000.Core
         public HasAwarnessStatesUpdatedEventArgs(bool added, bool removed, IAwarenessState state)
         {
             if ((added && removed) || (!added && !removed))
-                throw new InvalidOperationException("added and removed cannot both be true / false");
+                throw new InvalidOperationException("added and removed cannot both be true or false");
 
             Added = added;
             Removed = removed;
